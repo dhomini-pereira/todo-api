@@ -17,6 +17,6 @@ app.register(new TaskRouter().router, {
   prefix: "/task",
 });
 
-app.listen({ port: 3000 }, (err, address) => {
+app.listen({ port: Number(process.env.PORT) ?? 4000 }, (err, address) => {
   console.log(`Server is listening on ${address}`);
 });
