@@ -14,6 +14,7 @@ app.register(cors, {
   origin: "*",
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
+  credentials: true,
 });
 
 app.register(new UserRouter().router, {
