@@ -1,4 +1,5 @@
 import fastify from "fastify";
+import cors from "@fastify/cors";
 import { UserRouter } from "./routers/User.router";
 import { TaskRouter } from "./routers/Task.router";
 
@@ -8,6 +9,12 @@ declare module "fastify" {
   }
 }
 const app = fastify();
+
+app.register(cors, {
+  origin: "*",
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+});
 
 app.register(new UserRouter().router, {
   prefix: "/user",
