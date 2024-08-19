@@ -13,11 +13,7 @@ export class UserRouter {
   ) {
     app.post("/signup", SignUpController.handle);
 
-    app.post(
-      "/signin",
-      { preHandler: AuthGuardMiddleware.handle },
-      SignInController.handle
-    );
+    app.post("/signin", SignInController.handle);
 
     app.put(
       "/",
