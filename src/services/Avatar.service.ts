@@ -26,7 +26,7 @@ export class AvatarService {
         Key: `avatar/${fileData.key}.webp`,
       });
 
-      const send = await this.client.send(command);
+      await this.client.send(command);
 
       return `${process.env.BUCKET_URL}/avatar/${fileData.key}.webp`;
     } catch (err: any) {}
