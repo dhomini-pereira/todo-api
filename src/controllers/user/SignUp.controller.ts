@@ -1,4 +1,3 @@
-import { User } from "@prisma/client";
 import { FastifyReply, FastifyRequest } from "fastify";
 import sha256 from "sha256";
 import { z } from "zod";
@@ -12,6 +11,7 @@ const signUpSchema = z.object({
     .string()
     .min(8)
     .transform((pass) => sha256.x2(pass)),
+  avatarUrl: z.string().url().nullable(),
 });
 
 type SignUpSchema = z.infer<typeof signUpSchema>;
