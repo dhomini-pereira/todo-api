@@ -31,11 +31,10 @@ export class UpdateUserController {
         .send({ message: "There must be at least one field" });
 
     if (user.avatarUrl) {
-      const uploadedUrl = await new AvatarService().uploadFile({
+      user.avatarUrl = await new AvatarService().uploadFile({
         body: user.avatarUrl,
         key: user.id,
       });
-      user.avatarUrl = uploadedUrl;
     }
 
     const payload = await new UserRepo().update(user);

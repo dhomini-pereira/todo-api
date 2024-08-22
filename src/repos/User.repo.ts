@@ -69,11 +69,13 @@ export class UserRepo {
         email: user.email,
         name: user.name,
         password: user.password,
+        avatarUrl: user.avatarUrl,
       },
       select: {
         id: true,
         email: true,
         name: true,
+        avatarUrl: true,
         password: false,
       },
     });
