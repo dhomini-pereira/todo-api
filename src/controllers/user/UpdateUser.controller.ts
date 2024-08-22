@@ -32,7 +32,7 @@ export class UpdateUserController {
 
     if (user.avatarUrl) {
       user.avatarUrl = await new AvatarService().uploadFile({
-        body: Buffer.from(user.avatarUrl),
+        body: Buffer.from(user.avatarUrl, "base64"),
         key: user.id,
       });
     }
