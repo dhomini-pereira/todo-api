@@ -20,7 +20,10 @@ type UserSchema = z.infer<typeof userSchema>;
 
 export class UpdateUserController {
   public static async handle(request: FastifyRequest, reply: FastifyReply) {
-    const user: UserSchema = userSchema.parse(request.body);
+    const user: UserSchema = userSchema.parse({
+      ...(request.body as any),
+      id: request.user.id,
+    });
 
     if (!user.email && !user.name && !user.password && !user.avatarUrl)
       return reply
