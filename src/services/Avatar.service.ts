@@ -25,6 +25,7 @@ export class AvatarService {
         Body: fileData.body,
         ContentType: "image/webp",
         Key: `avatar/${fileData.key}.webp`,
+        ContentDisposition: "inline",
       });
 
       await this.client.send(command);
