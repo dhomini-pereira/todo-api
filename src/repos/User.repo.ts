@@ -18,7 +18,7 @@ export class UserRepo {
     });
   }
 
-  signIn(user: Omit<User, "id" | "name">) {
+  signIn(user: Omit<User, "id" | "name" | "avatarUrl">) {
     return database.user.findFirst({
       where: {
         email: user.email,
@@ -28,6 +28,7 @@ export class UserRepo {
         id: true,
         email: true,
         name: true,
+        avatarUrl: true,
         password: false,
       },
     });

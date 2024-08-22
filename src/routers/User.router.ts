@@ -4,6 +4,7 @@ import { DeleteUserController } from "../controllers/user/DeleteUser.controller"
 import { SignUpController } from "../controllers/user/SignUp.controller";
 import { SignInController } from "../controllers/user/SignIn.controller";
 import { UpdateUserController } from "../controllers/user/UpdateUser.controller";
+import { HasLoggedInController } from "../controllers/user/HasLoggedIn.controller";
 
 export class UserRouter {
   router(
@@ -14,6 +15,14 @@ export class UserRouter {
     app.post("/signup", SignUpController.handle);
 
     app.post("/signin", SignInController.handle);
+
+    app.get(
+      "/hasloggedin",
+      {
+        preHandler: AuthGuardMiddleware.handle,
+      },
+      HasLoggedInController.handle
+    );
 
     app.put(
       "/",
