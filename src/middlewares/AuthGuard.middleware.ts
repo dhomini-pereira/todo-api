@@ -13,7 +13,7 @@ export class AuthGuardMiddleware {
     if (!token.startsWith("Bearer "))
       return reply.status(401).send({ message: "Invalid Token" });
 
-    const payload = new IdentifyService().verify(token);
+    const payload = new IdentifyService().verify(token.replace("Bearer ", ""));
 
     request.user = payload;
 
