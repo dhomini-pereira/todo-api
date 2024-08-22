@@ -23,6 +23,7 @@ export class AvatarService {
       const command = new PutObjectCommand({
         Bucket: process.env.BUCKET_NAME,
         Body: fileData.body,
+        ContentType: "image/webp",
         Key: `avatar/${fileData.key}.webp`,
       });
 
