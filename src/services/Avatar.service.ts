@@ -1,7 +1,7 @@
 import { PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
 
 type IUploadInput = {
-  body: string;
+  body: Buffer;
   key: string;
 };
 
