@@ -47,6 +47,7 @@ export class UserRepo {
         id: true,
         email: true,
         name: true,
+        avatarUrl: true,
         password: false,
       },
     });
