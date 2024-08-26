@@ -23,6 +23,13 @@ export class TaskRepo {
       orderBy: {
         createdAt: "desc",
       },
+      select: {
+        id: true,
+        title: true,
+        description: true,
+        status: true,
+        createdAt: true,
+      },
     });
   }
 
