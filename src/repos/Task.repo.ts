@@ -18,7 +18,7 @@ export class TaskRepo {
       where: {
         userId: options.userId,
       },
-      skip: (options.page - 1) * this.LIMIT,
+      skip: (Number(options.page) - 1) * this.LIMIT,
       take: this.LIMIT,
       orderBy: {
         createdAt: "desc",
