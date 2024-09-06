@@ -37,7 +37,7 @@ export class TaskRouter {
     );
 
     app.put(
-      "/",
+      "/:id",
       { preHandler: AuthGuardMiddleware.handle },
       UpdateTaskController.handle
     );
