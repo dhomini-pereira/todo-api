@@ -1,6 +1,12 @@
 import { Task } from "@prisma/client";
 import { database } from "../config/database.config";
 
+enum Status {
+  CANCELED = "CANCELED",
+  PENDING = "PENDING",
+  DONE = "DONE",
+}
+
 export class TaskRepo {
   private readonly LIMIT = 10;
   create(task: Omit<Task, "id" | "status" | "createdAt">) {
@@ -13,10 +19,32 @@ export class TaskRepo {
     });
   }
 
-  read(options: { page: number; userId: string }) {
+  read(options: {
+    page: number;
+    userId: string;
+    status?: Status;
+    text?: string;
+  }) {
     return database.task.findMany({
       where: {
         userId: options.userId,
+        AND: {
+          status: options?.status,
+          OR: [
+            {
+              title: {
+                contains: options?.text,
+                mode: "insensitive",
+              },
+            },
+            {
+              description: {
+                contains: options?.text,
+                mode: "insensitive",
+              },
+            },
+          ],
+        },
       },
       skip: (Number(options.page) - 1) * this.LIMIT,
       take: this.LIMIT,
