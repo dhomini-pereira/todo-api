@@ -55,6 +55,13 @@ export class TaskRepo {
         description: task.description,
         status: task.status,
       },
+      select: {
+        id: true,
+        title: true,
+        description: true,
+        status: true,
+        createdAt: true,
+      },
     });
   }
 }

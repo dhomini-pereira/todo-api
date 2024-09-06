@@ -25,7 +25,7 @@ export class UpdateTaskController {
         message: "There must be at least one field",
       });
 
-    const payload = new TaskRepo().update(task);
+    const payload = await new TaskRepo().update(task);
 
     return reply.send(payload);
   }
