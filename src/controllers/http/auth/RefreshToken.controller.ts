@@ -32,12 +32,21 @@ export class RefreshTokenController {
 
     const refresh = await cache.get(`refreshToken:${userId}`);
 
+    if (!refresh) {
+      res.status(401).send({ error: "Refresh token expired" });
+      return;
+    }
+
     if (refresh !== refreshToken) {
       res.status(401).send({ error: "Invalid refresh token" });
       return;
     }
 
-    const accessToken = GenerateTokenUtil.generate(user, "access", "30m");
+    const accessToken = GenerateTokenUtil.generate(
+      user,
+      process.env.SECRET_ACCESS_JWT as string,
+      "30m"
+    );
 
     res.status(200).send({ accessToken });
     return;

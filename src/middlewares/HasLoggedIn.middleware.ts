@@ -13,7 +13,7 @@ export class HasLoggedIn {
 
     const tokenValidated = new ValidateTokenUtil().validate(
       token as string,
-      "access"
+      process.env.SECRET_ACCESS_JWT as string
     );
 
     socket.user = tokenValidated as User;
@@ -30,7 +30,7 @@ export class HasLoggedIn {
 
     const tokenValidated = new ValidateTokenUtil().validate(
       token as string,
-      "access"
+      process.env.SECRET_ACCESS_JWT as string
     );
 
     req.user = tokenValidated as User;
