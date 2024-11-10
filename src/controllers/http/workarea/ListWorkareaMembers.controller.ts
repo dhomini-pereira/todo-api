@@ -8,7 +8,13 @@ export class ListWorkareaMembersController {
 
     const members = await database.user.findMany({
       distinct: ["id"],
-      include: {
+      select: {
+        id: true,
+        username: true,
+        email: true,
+        imageURL: true,
+        createdAt: true,
+        updatedAt: true,
         memberWorkarea: {
           select: {
             role: true,
