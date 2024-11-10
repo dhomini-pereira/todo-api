@@ -6,17 +6,16 @@ import { GenerateTokenUtil } from "../../../utils/GenerateToken.util";
 
 export class SignInController {
   public async handle(req: Request, res: Response) {
-    const { email, password } = req.body;
+    const data = req.body;
 
-    if (!email || !password) {
+    if (!data || !data.email || !data.password) {
       res.status(400).json({ message: "Existem campos vazios!" });
       return;
     }
 
     const user = await database.user.findUnique({
       where: {
-        email,
-        password: bcrypt.hashSync(password, 15),
+        email: data.email,
       },
       select: {
         id: true,
@@ -25,10 +24,11 @@ export class SignInController {
         createdAt: true,
         updatedAt: true,
         active: true,
+        password: true,
       },
     });
 
-    if (!user) {
+    if (!user || !bcrypt.compareSync(data.password, user.password)) {
       res.status(401).json({ message: "E-Mail ou senha inválidos!" });
       return;
     }
@@ -40,10 +40,20 @@ export class SignInController {
 
     const refreshToken = GenerateTokenUtil.generate(
       { userId: user.id },
-      "refresh",
+      process.env.SECRET_REFRESH_JWT as string,
       "7d"
     );
-    const accessToken = GenerateTokenUtil.generate(user, "access", "30m");
+    const accessToken = GenerateTokenUtil.generate(
+      {
+        userId: user.id,
+        username: user.username,
+        email: user.email,
+        createdAt: user.createdAt,
+        updatedAt: user.updatedAt,
+      },
+      process.env.SECRET_ACCESS_JWT as string,
+      "30m"
+    );
 
     await cache.set(
       `refreshToken:${user.id}`,
