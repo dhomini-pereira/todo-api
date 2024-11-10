@@ -19,6 +19,7 @@ declare global {
     }
   }
 }
+
 const app = express();
 const server = createServer(app);
 const io = new Server(server);
@@ -26,7 +27,7 @@ const io = new Server(server);
 io.use(new HasLoggedIn().ws);
 app.use(express.json());
 app.use("/auth", AuthRouter);
-app.use("/workarea", WorkareaRouter);
+app.use("/workarea", new HasLoggedIn().http, WorkareaRouter);
 
 server.listen(3000, () => {
   console.log(`Listen on port: 3000`);
