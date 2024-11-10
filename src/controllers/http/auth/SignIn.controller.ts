@@ -45,7 +45,7 @@ export class SignInController {
     );
     const accessToken = GenerateTokenUtil.generate(
       {
-        userId: user.id,
+        id: user.id,
         username: user.username,
         email: user.email,
         createdAt: user.createdAt,
