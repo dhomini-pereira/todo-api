@@ -47,7 +47,7 @@ model Workarea {
   name      String
   type      WorkareaType
   ownerId   String       @map("owner_id")
-  owner     User         @relation(fields: [ownerId], references: [id])
+  owner     User         @relation(fields: [ownerId], references: [id], onDelete: Cascade)
   createdAt DateTime     @default(now()) @map("created_at")
   updatedAt DateTime     @default(now()) @updatedAt @map("updated_at")
 
@@ -66,11 +66,11 @@ model Task {
   timeEstimate DateTime?  @map("time_estimate")
   createdAt    DateTime   @default(now()) @map("created_at")
   updatedAt    DateTime   @default(now()) @updatedAt @map("updated_at")
-  assignedId   String     @map("assigned_id")
+  assignedId   String?    @map("assigned_id")
   workareaId   BigInt     @map("workarea_id")
 
-  assigned User     @relation(fields: [assignedId], references: [id])
-  workarea Workarea @relation(fields: [workareaId], references: [id])
+  assigned User?    @relation(fields: [assignedId], references: [id], onDelete: SetNull)
+  workarea Workarea @relation(fields: [workareaId], references: [id], onDelete: Cascade)
 
   @@map("tasks")
 }
@@ -82,8 +82,8 @@ model MemberWorkarea {
   createdAt  DateTime @default(now()) @map("created_at")
   updatedAt  DateTime @default(now()) @updatedAt @map("updated_at")
 
-  user     User     @relation(fields: [userId], references: [id])
-  workarea Workarea @relation(fields: [workareaId], references: [id])
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  workarea Workarea @relation(fields: [workareaId], references: [id], onDelete: Cascade)
 
   @@id([userId, workareaId])
   @@unique([userId, workareaId])
@@ -94,8 +94,8 @@ model Invite {
   userId     String @map("user_id")
   workareaId BigInt @map("workarea_id")
 
-  user     User     @relation(fields: [userId], references: [id])
-  workarea Workarea @relation(fields: [workareaId], references: [id])
+  user     User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  workarea Workarea @relation(fields: [workareaId], references: [id], onDelete: Cascade)
 
   @@id([userId, workareaId])
   @@unique([userId, workareaId])
