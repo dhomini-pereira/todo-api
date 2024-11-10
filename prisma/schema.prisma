@@ -1,0 +1,103 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum WorkareaType {
+  PROFESSIONAL
+  PERSONAL
+}
+
+enum TaskStatus {
+  PENDING
+  PROGRESSING
+  DONE
+}
+
+enum UserType {
+  LEADER
+  MEMBER
+}
+
+model User {
+  id        String   @id @default(uuid())
+  username  String   @unique
+  email     String   @unique
+  password  String
+  imageURL  String?  @map("image_url")
+  active    Boolean  @default(false)
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at")
+
+  workareas      Workarea[]
+  tasks          Task[]
+  memberWorkarea MemberWorkarea[]
+  invites        Invite[]
+
+  @@index([email, password])
+  @@map("users")
+}
+
+model Workarea {
+  id        BigInt       @id @default(autoincrement())
+  name      String
+  type      WorkareaType
+  ownerId   String       @map("owner_id")
+  owner     User         @relation(fields: [ownerId], references: [id])
+  createdAt DateTime     @default(now()) @map("created_at")
+  updatedAt DateTime     @default(now()) @updatedAt @map("updated_at")
+
+  tasks          Task[]
+  memberWorkarea MemberWorkarea[]
+  invites        Invite[]
+
+  @@map("workareas")
+}
+
+model Task {
+  id           BigInt     @id @default(autoincrement())
+  title        String
+  description  String?
+  status       TaskStatus
+  timeEstimate DateTime?  @map("time_estimate")
+  createdAt    DateTime   @default(now()) @map("created_at")
+  updatedAt    DateTime   @default(now()) @updatedAt @map("updated_at")
+  assignedId   String     @map("assigned_id")
+  workareaId   BigInt     @map("workarea_id")
+
+  assigned User     @relation(fields: [assignedId], references: [id])
+  workarea Workarea @relation(fields: [workareaId], references: [id])
+
+  @@map("tasks")
+}
+
+model MemberWorkarea {
+  userId     String   @map("user_id")
+  workareaId BigInt   @map("workarea_id")
+  role       UserType @default(MEMBER)
+  createdAt  DateTime @default(now()) @map("created_at")
+  updatedAt  DateTime @default(now()) @updatedAt @map("updated_at")
+
+  user     User     @relation(fields: [userId], references: [id])
+  workarea Workarea @relation(fields: [workareaId], references: [id])
+
+  @@id([userId, workareaId])
+  @@unique([userId, workareaId])
+  @@map("members_workareas")
+}
+
+model Invite {
+  userId     String @map("user_id")
+  workareaId BigInt @map("workarea_id")
+
+  user     User     @relation(fields: [userId], references: [id])
+  workarea Workarea @relation(fields: [workareaId], references: [id])
+
+  @@id([userId, workareaId])
+  @@unique([userId, workareaId])
+  @@map("invites")
+}
