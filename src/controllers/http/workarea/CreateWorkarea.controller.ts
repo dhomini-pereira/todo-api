@@ -6,6 +6,21 @@ export class CreateWorkareaController {
     const data = req.body;
     const user = req.user;
 
+    if (!data) {
+      res.status(400).send({ error: "Dados inválidos!" });
+      return;
+    }
+
+    if (!data.name) {
+      res.status(400).send({ error: "Nome é obrigatório!" });
+      return;
+    }
+
+    if (!data.type) {
+      res.status(400).send({ error: "Tipo é obrigatório!" });
+      return;
+    }
+
     await database.workarea.create({
       data: {
         name: data.name,
