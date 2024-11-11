@@ -7,14 +7,14 @@ export class ResendActiveAccountController {
   async handle(req: Request, res: Response) {
     const data = req.body;
 
-    if (!data || !data.userId) {
-      res.status(400).send({ error: "ID do usuário não informado!" });
+    if (!data || !data.email) {
+      res.status(400).send({ error: "E-Mail não informado!" });
       return;
     }
 
     const user = await database.user.findFirst({
       where: {
-        id: data.userId,
+        email: data.email,
       },
     });
 
