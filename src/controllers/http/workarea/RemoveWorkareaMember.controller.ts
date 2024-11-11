@@ -28,7 +28,21 @@ export class RemoveWorkareaMemberController {
     });
 
     if (!user) {
-      res.status(403).send({ error: "Você não é dono desta área de trabalho" });
+      res
+        .status(403)
+        .send({ error: "Você não é dono/líder desta área de trabalho" });
+      return;
+    }
+
+    const memberWorkarea = await database.memberWorkarea.findFirst({
+      where: {
+        userId: memberId,
+        workareaId,
+      },
+    });
+
+    if (!memberWorkarea) {
+      res.status(404).send({ error: "Este usuário não está nesta workarea!" });
       return;
     }
 

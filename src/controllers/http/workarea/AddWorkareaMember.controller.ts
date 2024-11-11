@@ -7,7 +7,7 @@ export class AddWorkareaMemberController {
     const workareaId = Number(req.params.id);
     const data = req.body;
 
-    if (!data.member) {
+    if (!data || !data.member) {
       res.status(400).send({ error: "E-mail ou username é obrigatório!" });
       return;
     }
@@ -35,7 +35,12 @@ export class AddWorkareaMemberController {
     if (!user) {
       res
         .status(403)
-        .send({ error: "Você não é dono/líder desta área de trabalho" });
+        .send({ error: "Você não é dono/líder desta área de trabalho!" });
+      return;
+    }
+
+    if (user.type === "PERSONAL") {
+      res.status(400).send({ error: "Você não pode convidar usuários!" });
       return;
     }
 

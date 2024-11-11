@@ -26,7 +26,7 @@ export class ListWorkareaMembersController {
           {
             workareas: {
               some: {
-                ownerId: userId,
+                id: workareaId,
               },
             },
           },
@@ -34,7 +34,6 @@ export class ListWorkareaMembersController {
             memberWorkarea: {
               some: {
                 workareaId: workareaId,
-                userId: userId,
               },
             },
           },
