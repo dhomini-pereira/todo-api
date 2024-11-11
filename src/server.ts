@@ -4,7 +4,6 @@ import { Server } from "socket.io";
 import { HasLoggedInMiddleware } from "./middlewares/HasLoggedIn.middleware";
 import { AuthRouter } from "./routes/Auth.routes";
 import { WorkareaRouter } from "./routes/Workarea.routes";
-import { User } from "@prisma/client";
 import { InviteRouter } from "./routes/Invite.routes";
 
 const app = express();

@@ -12,14 +12,21 @@ export class HasLoggedInMiddleware {
       return next(new Error("Token não fornecido"));
     }
 
-    const tokenValidated = new ValidateTokenUtil().validate(
-      token as string,
-      process.env.SECRET_ACCESS_JWT as string
-    );
+    try {
+      const tokenValidated = new ValidateTokenUtil().validate(
+        token as string,
+        process.env.SECRET_ACCESS_JWT as string
+      );
 
-    socket.user = tokenValidated as User;
+      if (!tokenValidated) {
+        return next(new Error("Token inválido"));
+      }
 
-    return next();
+      socket.user = tokenValidated as User;
+      return next();
+    } catch (error) {
+      return next(new Error("Erro ao validar o token"));
+    }
   }
 
   http(req: Request, res: Response, next: NextFunction) {
