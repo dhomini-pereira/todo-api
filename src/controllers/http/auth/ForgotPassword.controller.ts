@@ -1,6 +1,7 @@
 import { cache } from "@/configs/cache.config";
 import { database } from "@/configs/database.config";
 import { SendEmailService } from "@/services/SendEmail.service";
+import { GenerateCodeUtil } from "@/utils/GenerateCode.util";
 import { Request, Response } from "express";
 
 export class ForgotPasswordController {
@@ -36,10 +37,7 @@ export class ForgotPasswordController {
       return;
     }
 
-    const code = String(Math.floor(100000 + Math.random() * 900000)).padStart(
-      6,
-      "0"
-    );
+    const code = new GenerateCodeUtil().generate();
 
     await cache.set(`forgotPassword:${user.id}`, code, "EX", 60 * 5);
 

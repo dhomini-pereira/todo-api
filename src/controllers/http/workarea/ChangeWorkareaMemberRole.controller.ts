@@ -16,8 +16,14 @@ export class ChangeWorkareaMemberRoleController {
     });
 
     if (!user) {
-      res.status(403).send({ error: "Você não é dono desta área de trabalho" });
+      res
+        .status(403)
+        .send({ error: "Você não é dono desta área de trabalho!" });
       return;
+    }
+
+    if (userId === memberId) {
+      res.status(400).send({ error: "Você não pode alterar o próprio cargo!" });
     }
 
     await database.memberWorkarea.update({

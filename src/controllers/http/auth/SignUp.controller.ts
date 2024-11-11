@@ -4,6 +4,7 @@ import bcrypt from "bcrypt";
 import { SendEmailService } from "@/services/SendEmail.service";
 import { cache } from "@/configs/cache.config";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
+import { GenerateCodeUtil } from "@/utils/GenerateCode.util";
 
 export class SignUpController {
   public async handle(req: Request, res: Response) {
@@ -30,10 +31,7 @@ export class SignUpController {
         },
       });
 
-      const code = String(Math.floor(100000 + Math.random() * 900000)).padStart(
-        6,
-        "0"
-      );
+      const code = new GenerateCodeUtil().generate();
 
       await cache.set(`activeAccount:${user.id}`, code, "EX", 60 * 15);
 
@@ -47,19 +45,29 @@ export class SignUpController {
       res.status(201).json(user);
       return;
     } catch (err) {
-      if (err instanceof PrismaClientKnownRequestError) {
-        if (err.code === "P2002") {
-          if ((err.meta?.target as string[])?.includes("email")) {
-            res.status(400).json({ error: "E-mail já cadastrado!" });
-            return;
-          }
+      return this.error(res, err);
+    }
+  }
 
-          if ((err.meta?.target as string[])?.includes("username")) {
-            res.status(400).json({ error: "Nome de usuário já cadastrado!" });
-            return;
-          }
+  error(res: Response, err: any): void {
+    if (err instanceof PrismaClientKnownRequestError) {
+      if (err.code === "P2002") {
+        if ((err.meta?.target as string[])?.includes("email")) {
+          res.status(400).json({ error: "E-mail já cadastrado!" });
+          return;
         }
+
+        if ((err.meta?.target as string[])?.includes("username")) {
+          res.status(400).json({ error: "Nome de usuário já cadastrado!" });
+          return;
+        }
+      } else {
+        res.status(500).json({ error: "Erro interno do servidor!" });
+        return;
       }
+    } else {
+      res.status(500).send({ error: "Erro interno do servidor!" });
+      return;
     }
   }
 }

@@ -8,13 +8,19 @@ export class DeleteWorkareaController {
 
     const user = await database.workarea.findFirst({
       where: {
-        ownerId: userId,
         id: workareaId,
       },
     });
 
     if (!user) {
-      res.status(403).send({ error: "Você não é dono desta área de trabalho" });
+      res.status(403).send({ error: "Esta área de trabalho não existe!" });
+      return;
+    }
+
+    if (user.ownerId === userId) {
+      res
+        .status(403)
+        .send({ error: "Você não é dono desta área de trabalho!" });
       return;
     }
 
