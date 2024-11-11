@@ -25,7 +25,17 @@ export class HasLoggedInMiddleware {
       socket.user = tokenValidated as User;
       return next();
     } catch (error) {
-      return next(new Error("Erro ao validar o token"));
+      if (error instanceof JsonWebTokenError) {
+        if (error.name === "TokenExpiredError") {
+          return next(new Error("Token expirado"));
+        } else if (error.name === "JsonWebTokenError") {
+          return next(new Error("Token inválido"));
+        } else {
+          return next(new Error("Erro interno do servidor"));
+        }
+      } else {
+        return next(new Error("Erro interno do servidor"));
+      }
     }
   }
 
