@@ -22,6 +22,30 @@ Quanto ao HTTP, foi não haver a necessidade de atualizar em tempo real informa�
 
 ## Documentação da API
 
+### Instalação
+
+1. Instalação de dependências
+
+```bash
+npm install
+```
+
+2. Criar uma instância do Redis
+3. Criar uma instância do PostgreSQL
+4. Configurar variáveis de ambiente de acordo com o .example.env
+5. Gerar modelos do Prisma ORM e efetiva-los no banco de dados
+
+```bash
+npx prisma db push
+```
+
+6. Rodando o projeto
+
+```bash
+npm run dev
+```
+7. Pronto, agora a API está rodando em `http://localhost:3000`
+
 ### Autenticação
 
 Para acessar os recursos da API, é necessário um token JWT (Json Web Token). O token deve ser enviado no cabeçalho `Authorization` com o prefixo `Bearer`, por exemplo: `Authorization: Bearer <seu_token>`.
@@ -61,8 +85,12 @@ O token é obtido através das rotas `/signup` e `/signin` (HTTP).
 
 A conexão WebSocket é estabelecida através da URL `localhost:3000/ws`. Após a conexão, o cliente pode enviar e receber mensagens.
 
-| EVENTO        | DESCRIÇÃO                |
-| ------------- | ------------------------ |
-| `connection`  | Conecta ao WebSocket.    |
-| `disconnect`  | Desconecta do WebSocket. |
-| `create-task` | Cria uma nova tarefa.    |
+| EVENTO             | DESCRIÇÃO                      |
+| ------------------ | ------------------------------ |
+| `connection`       | Conecta ao WebSocket.          |
+| `disconnect`       | Desconecta do WebSocket.       |
+| `create_task`      | Cria uma nova tarefa.          |
+| `update_task`      | Atualiza uma tarefa.           |
+| `delete_task`      | Deleta uma tarefa.             |
+| `change_task_type` | Altera o status de uma tarefa. |
+| `list_tasks`       | Lista todas as tarefas.        |
