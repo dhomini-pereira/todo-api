@@ -11,9 +11,7 @@ import { UserRouter } from "./routes/User.routes";
 
 const app = express();
 const server = createServer(app);
-const io = new Server(server, {
-  path: "/ws"
-});
+const io = new Server(server)
 
 io.use(new HasLoggedInMiddleware().ws);
 app.use(express.json());
