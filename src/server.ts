@@ -7,16 +7,20 @@ import { WorkareaRouter } from "./routes/Workarea.routes";
 import { InviteRouter } from "./routes/Invite.routes";
 import { CreateTaskController } from "./controllers/ws/CreateTask.controller";
 import "@/configs/modules.config";
+import { UserRouter } from "./routes/User.routes";
 
 const app = express();
 const server = createServer(app);
-const io = new Server(server);
+const io = new Server(server, {
+  path: "/ws"
+});
 
 io.use(new HasLoggedInMiddleware().ws);
 app.use(express.json());
 app.use("/auth", AuthRouter);
 app.use("/workarea", new HasLoggedInMiddleware().http, WorkareaRouter);
 app.use("/invite", new HasLoggedInMiddleware().http, InviteRouter);
+app.use("/user", new HasLoggedInMiddleware().http, UserRouter);
 
 io.on("connection", (socket) => {
   const workareaId = socket.handshake.query.workareaId;
