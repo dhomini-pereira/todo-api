@@ -1,4 +1,4 @@
-import { database } from "@/configs/database.config";
+import { database } from "../../configs/database.config";
 import { Request, Response } from "express";
 
 export class AcceptOrDeclineInviteController {

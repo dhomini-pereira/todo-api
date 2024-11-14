@@ -1,8 +1,7 @@
-import { database } from "@/configs/database.config";
-import { storage } from "@/configs/storage.config";
-import { DeleteFileService } from "@/services/DeleteFile.service";
-import { UploadFileService } from "@/services/UploadFile.service";
-import { S3Client } from "@aws-sdk/client-s3";
+import { database } from "../../configs/database.config";
+import { storage } from "../../configs/storage.config";
+import { DeleteFileService } from "../../services/DeleteFile.service";
+import { UploadFileService } from "../../services/UploadFile.service";
 import { User } from "@prisma/client";
 import { Request, Response } from "express";
 

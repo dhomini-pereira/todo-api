@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { Server } from "socket.io";
-import { database } from "@/configs/database.config";
+import { database } from "../../configs/database.config";
 
 export class CreateTaskController {
   constructor(private socket: Server) {

@@ -1,11 +1,11 @@
 import { Router } from "express";
-import { RefreshTokenController } from "@/controllers/auth/RefreshToken.controller";
-import { SignInController } from "@/controllers/auth/SignIn.controller";
-import { SignUpController } from "@/controllers/auth/SignUp.controller";
-import { ResetPasswordController } from "@/controllers/auth/ResetPassword.controller";
-import { ForgotPasswordController } from "@/controllers/auth/ForgotPassword.controller";
-import { ActiveAccountController } from "@/controllers/auth/ActiveAccount.controller";
-import { ResendActiveAccountController } from "@/controllers/auth/ResendActiveAccount.controller";
+import { RefreshTokenController } from "../controllers/auth/RefreshToken.controller";
+import { SignInController } from "../controllers/auth/SignIn.controller";
+import { SignUpController } from "../controllers/auth/SignUp.controller";
+import { ResetPasswordController } from "../controllers/auth/ResetPassword.controller";
+import { ForgotPasswordController } from "../controllers/auth/ForgotPassword.controller";
+import { ActiveAccountController } from "../controllers/auth/ActiveAccount.controller";
+import { ResendActiveAccountController } from "../controllers/auth/ResendActiveAccount.controller";
 
 export const AuthRouter = Router();
 

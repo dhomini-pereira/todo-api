@@ -1,6 +1,6 @@
-import { database } from "@/configs/database.config";
-import { storage } from "@/configs/storage.config";
-import { DeleteFileService } from "@/services/DeleteFile.service";
+import { database } from "../../configs/database.config";
+import { storage } from "../../configs/storage.config";
+import { DeleteFileService } from "../../services/DeleteFile.service";
 import { Request, Response } from "express";
 
 export class DeleteUserController {

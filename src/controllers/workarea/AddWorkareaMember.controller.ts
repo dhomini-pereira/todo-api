@@ -1,4 +1,4 @@
-import { database } from "@/configs/database.config";
+import { database } from "../../configs/database.config";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 import { Request, Response } from "express";
 

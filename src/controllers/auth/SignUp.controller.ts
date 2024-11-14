@@ -1,10 +1,10 @@
 import { Request, Response } from "express";
 import { database } from "../../configs/database.config";
 import bcrypt from "bcrypt";
-import { SendEmailService } from "@/services/SendEmail.service";
-import { cache } from "@/configs/cache.config";
+import { SendEmailService } from "../../services/SendEmail.service";
+import { cache } from "../../configs/cache.config";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
-import { GenerateCodeUtil } from "@/utils/GenerateCode.util";
+import { GenerateCodeUtil } from "../../utils/GenerateCode.util";
 
 export class SignUpController {
   public async handle(req: Request, res: Response) {

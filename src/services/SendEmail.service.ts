@@ -1,4 +1,4 @@
-import { email } from "@/configs/email.config";
+import { email } from "../configs/email.config";
 import handlebars from "handlebars";
 import fs from "fs";
 import path from "path";

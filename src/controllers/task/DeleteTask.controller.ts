@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { database } from "@/configs/database.config";
+import { database } from "../../configs/database.config";
 import { Server } from "socket.io";
 
 export class DeleteTaskController {

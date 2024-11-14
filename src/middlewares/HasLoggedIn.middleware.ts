@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { ValidateTokenUtil } from "@/utils/ValidateToken.util";
+import { ValidateTokenUtil } from "../utils/ValidateToken.util";
 import { ExtendedError, Socket } from "socket.io";
 import { User } from "@prisma/client";
 import { JsonWebTokenError } from "jsonwebtoken";

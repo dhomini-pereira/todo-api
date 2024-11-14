@@ -1,7 +1,7 @@
-import { cache } from "@/configs/cache.config";
-import { database } from "@/configs/database.config";
-import { SendEmailService } from "@/services/SendEmail.service";
-import { GenerateCodeUtil } from "@/utils/GenerateCode.util";
+import { cache } from "../../configs/cache.config";
+import { database } from "../../configs/database.config";
+import { SendEmailService } from "../../services/SendEmail.service";
+import { GenerateCodeUtil } from "../../utils/GenerateCode.util";
 import { Request, Response } from "express";
 
 export class ResendActiveAccountController {

@@ -1,5 +1,5 @@
-import { cache } from "@/configs/cache.config";
-import { database } from "@/configs/database.config";
+import { cache } from "../../configs/cache.config";
+import { database } from "../../configs/database.config";
 import { Request, Response } from "express";
 import bcrypt from "bcrypt";
 

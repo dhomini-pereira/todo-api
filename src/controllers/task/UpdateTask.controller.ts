@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { database } from "@/configs/database.config";
+import { database } from "../../configs/database.config";
 import { Task } from "@prisma/client";
 import { Server } from "socket.io";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";

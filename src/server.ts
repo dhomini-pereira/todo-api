@@ -6,7 +6,7 @@ import { HasLoggedInMiddleware } from "./middlewares/HasLoggedIn.middleware";
 import { AuthRouter } from "./routes/Auth.routes";
 import { WorkareaRouter } from "./routes/Workarea.routes";
 import { InviteRouter } from "./routes/Invite.routes";
-import "@/configs/modules.config";
+import "./configs/modules.config";
 import { UserRouter } from "./routes/User.routes";
 import { database } from "./configs/database.config";
 import { ListTasksController } from "./controllers/task/ListTasks.controller";
