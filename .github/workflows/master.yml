@@ -48,6 +48,6 @@ jobs:
               -e R2_BUCKET_NAME="${{ secrets.R2_BUCKET_NAME }}" \
               -e REDIS_HOST="${{ secrets.REDIS_HOST }}" \
               -e REDIS_PORT="${{ secrets.REDIS_PORT }}" \
-              -e SECRET_ACCESS_JWT=${{ secrets.SECRET_ACCESS_JWT }} \
-              -e SECRET_REFRESH_JWT=${{ secrets.SECRET_REFRESH_JWT }} \
+              -e SECRET_ACCESS_JWT="${{ secrets.SECRET_ACCESS_JWT }}" \
+              -e SECRET_REFRESH_JWT="${{ secrets.SECRET_REFRESH_JWT }}" \
               -p 3000:3000 jovemhero/todo-api:latest
