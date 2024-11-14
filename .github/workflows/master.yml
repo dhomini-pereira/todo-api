@@ -42,6 +42,7 @@ jobs:
               -e DATABASE_URL="${{ secrets.DATABASE_URL }}" \
               -e USER_EMAIL="${{ secrets.USER_EMAIL }}" \
               -e PASS_EMAIL="${{ secrets.PASS_EMAIL }}" \
+              -e R2_ENDPOINT="${{ secrets.R2_ENDPOINT }}"
               -e R2_ACCESS_KEY_ID="${{ secrets.R2_ACCESS_KEY_ID }}" \
               -e R2_SECRET_ACCESS_KEY="${{ secrets.R2_SECRET_ACCESS_KEY }}" \
               -e R2_BUCKET_NAME="${{ secrets.R2_BUCKET_NAME }}" \
