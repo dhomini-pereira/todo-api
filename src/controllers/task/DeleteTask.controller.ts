@@ -8,15 +8,16 @@ export class DeleteTaskController {
   }
   async handle(req: Request, res: Response) {
     const params = req.params;
+    const data = req.body;
 
-    if (!params || !params.id || !params.taskId) {
+    if (!params || !params.id || !data || !data.id) {
       res.status(400).send({ error: "Dados inválidos!" });
       return;
     }
 
     const deletedTask = await database.task.delete({
       where: {
-        id: Number(params.taskId),
+        id: data.id,
         workareaId: Number(params.id),
       },
     });
