@@ -50,4 +50,4 @@ jobs:
               -e REDIS_PORT="${{ secrets.REDIS_PORT }}" \
               -e SECRET_ACCESS_JWT=${{ secrets.SECRET_ACCESS_JWT }} \
               -e SECRET_REFRESH_JWT=${{ secrets.SECRET_REFRESH_JWT }}
-              
+              -p 3000:3000 jovemhero/todo-api:latest
