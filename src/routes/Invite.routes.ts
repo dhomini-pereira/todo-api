@@ -1,5 +1,5 @@
-import { AcceptOrDeclineInviteController } from "@/controllers/http/invite/AcceptOrDeclineInvite.controller";
-import { ListInvitesController } from "@/controllers/http/invite/ListInvites.controller";
+import { AcceptOrDeclineInviteController } from "@/controllers/invite/AcceptOrDeclineInvite.controller";
+import { ListInvitesController } from "@/controllers/invite/ListInvites.controller";
 import { Router } from "express";
 
 export const InviteRouter = Router();

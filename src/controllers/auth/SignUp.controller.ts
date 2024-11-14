@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { database } from "../../../configs/database.config";
+import { database } from "../../configs/database.config";
 import bcrypt from "bcrypt";
 import { SendEmailService } from "@/services/SendEmail.service";
 import { cache } from "@/configs/cache.config";

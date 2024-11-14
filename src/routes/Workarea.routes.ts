@@ -1,11 +1,12 @@
-import { AddWorkareaMemberController } from "@/controllers/http/workarea/AddWorkareaMember.controller";
-import { ChangeWorkareaMemberRoleController } from "@/controllers/http/workarea/ChangeWorkareaMemberRole.controller";
-import { CreateWorkareaController } from "@/controllers/http/workarea/CreateWorkarea.controller";
-import { DeleteWorkareaController } from "@/controllers/http/workarea/DeleteWorkarea.controller";
-import { ListWorkareaMembersController } from "@/controllers/http/workarea/ListWorkareaMembers.controller";
-import { ListWorkareasController } from "@/controllers/http/workarea/ListWorkareas.controller";
-import { RemoveWorkareaMemberController } from "@/controllers/http/workarea/RemoveWorkareaMember.controller";
-import { UpdateWorkareaController } from "@/controllers/http/workarea/UpdateWorkarea.controller";
+import { AddWorkareaMemberController } from "@/controllers/workarea/AddWorkareaMember.controller";
+import { ChangeWorkareaMemberRoleController } from "@/controllers/workarea/ChangeWorkareaMemberRole.controller";
+import { CreateWorkareaController } from "@/controllers/workarea/CreateWorkarea.controller";
+import { DeleteWorkareaController } from "@/controllers/workarea/DeleteWorkarea.controller";
+import { GetWorkareaController } from "@/controllers/workarea/GetWorkarea.controller";
+import { ListWorkareaMembersController } from "@/controllers/workarea/ListWorkareaMembers.controller";
+import { ListWorkareasController } from "@/controllers/workarea/ListWorkareas.controller";
+import { RemoveWorkareaMemberController } from "@/controllers/workarea/RemoveWorkareaMember.controller";
+import { UpdateWorkareaController } from "@/controllers/workarea/UpdateWorkarea.controller";
 import { Router } from "express";
 
 export const WorkareaRouter = Router();
@@ -24,3 +25,4 @@ WorkareaRouter.patch(
   "/:id/member/:memberId",
   new ChangeWorkareaMemberRoleController().handle
 );
+WorkareaRouter.get("/:id", new GetWorkareaController().handle);

@@ -17,7 +17,7 @@ export class DeleteWorkareaController {
       return;
     }
 
-    if (user.ownerId === userId) {
+    if (user.ownerId !== userId) {
       res
         .status(403)
         .send({ error: "Você não é dono desta área de trabalho!" });

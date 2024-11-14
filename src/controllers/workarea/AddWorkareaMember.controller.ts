@@ -42,7 +42,12 @@ export class AddWorkareaMemberController {
       }
 
       if (user.type === "PERSONAL") {
-        res.status(400).send({ error: "Você não pode convidar usuários!" });
+        res
+          .status(400)
+          .send({
+            error:
+              "Você não pode convidar usuários em uma área de trabalho PERSONAL!",
+          });
         return;
       }
 
@@ -61,6 +66,11 @@ export class AddWorkareaMemberController {
 
       if (!member) {
         res.status(404).send({ error: "Usuário não encontrado!" });
+        return;
+      }
+
+      if (member.id === userId) {
+        res.status(400).send({ error: "Você não pode convidar você mesmo!" });
         return;
       }
 

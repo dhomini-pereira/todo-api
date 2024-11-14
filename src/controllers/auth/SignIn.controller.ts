@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
-import { database } from "../../../configs/database.config";
+import { database } from "../../configs/database.config";
 import bcrypt from "bcrypt";
-import { cache } from "../../../configs/cache.config";
-import { GenerateTokenUtil } from "../../../utils/GenerateToken.util";
+import { cache } from "../../configs/cache.config";
+import { GenerateTokenUtil } from "../../utils/GenerateToken.util";
 
 export class SignInController {
   public async handle(req: Request, res: Response) {

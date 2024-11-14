@@ -1,6 +1,6 @@
-import { DeleteUserController } from "@/controllers/http/user/DeleteUser.controller";
-import { GetUserController } from "@/controllers/http/user/GetUser.controller";
-import { UpdateUserController } from "@/controllers/http/user/UpdateUser.controller";
+import { DeleteUserController } from "@/controllers/user/DeleteUser.controller";
+import { GetUserController } from "@/controllers/user/GetUser.controller";
+import { UpdateUserController } from "@/controllers/user/UpdateUser.controller";
 import { Router } from "express";
 
 export const UserRouter = Router();

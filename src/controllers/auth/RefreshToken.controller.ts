@@ -1,20 +1,28 @@
 import { Request, Response } from "express";
-import { cache } from "../../../configs/cache.config";
-import { GenerateTokenUtil } from "../../../utils/GenerateToken.util";
-import { database } from "../../../configs/database.config";
+import { cache } from "../../configs/cache.config";
+import { GenerateTokenUtil } from "../../utils/GenerateToken.util";
+import { database } from "../../configs/database.config";
+import { decode } from "jsonwebtoken";
 
 export class RefreshTokenController {
   public async handle(req: Request, res: Response) {
-    const { userId, refreshToken } = req.body;
+    const { refreshToken } = req.body;
 
-    if (!userId || !refreshToken) {
-      res.status(401).send({ error: "Missing refresh token" });
+    if (!refreshToken) {
+      res.status(401).send({ error: "Refresh Token não enviado" });
       return;
     }
 
+    const userInfo = decode(refreshToken) as { userId: string };
+
+    if (!userInfo) {
+      res.status(401).send({ error: "Refresh Token inválido" });
+      return;
+    }
+    
     const user = await database.user.findFirst({
       where: {
-        id: userId,
+        id: userInfo.userId,
       },
       select: {
         id: true,
@@ -30,15 +38,15 @@ export class RefreshTokenController {
       return;
     }
 
-    const refresh = await cache.get(`refreshToken:${userId}`);
+    const refresh = await cache.get(`refreshToken:${userInfo.userId}`);
 
     if (!refresh) {
-      res.status(401).send({ error: "Refresh token expired" });
+      res.status(401).send({ error: "Refresh Token expiredo" });
       return;
     }
 
     if (refresh !== refreshToken) {
-      res.status(401).send({ error: "Invalid refresh token" });
+      res.status(401).send({ error: "Refresh Token inválido" });
       return;
     }
 
