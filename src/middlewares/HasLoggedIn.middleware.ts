@@ -6,7 +6,7 @@ import { JsonWebTokenError } from "jsonwebtoken";
 
 export class HasLoggedInMiddleware {
   ws(socket: Socket, next: (err?: ExtendedError) => void) {
-    const token = socket.handshake.headers.authorization;
+    const token = socket.handshake.auth.token;
     
     const workareaId = socket.handshake.query.workareaId;
 
