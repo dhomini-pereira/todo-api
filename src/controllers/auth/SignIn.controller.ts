@@ -29,12 +29,12 @@ export class SignInController {
     });
 
     if (!user || !bcrypt.compareSync(data.password, user.password)) {
-      res.status(401).json({ message: "E-Mail ou senha inválidos!" });
+      res.status(400).json({ message: "E-Mail ou senha inválidos!" });
       return;
     }
 
     if (!user.active) {
-      res.status(401).json({ message: "Conta não ativada!" });
+      res.status(400).json({ message: "Conta não ativada!" });
       return;
     }
 
