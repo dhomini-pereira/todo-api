@@ -21,7 +21,7 @@ export class CreateWorkareaController {
       return;
     }
 
-    await database.workarea.create({
+    const workarea = await database.workarea.create({
       data: {
         name: data.name,
         type: data.type,
@@ -29,7 +29,7 @@ export class CreateWorkareaController {
       },
     });
 
-    res.sendStatus(201);
+    res.status(201).send(workarea);
     return;
   }
 }
