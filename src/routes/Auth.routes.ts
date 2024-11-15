@@ -6,6 +6,8 @@ import { ResetPasswordController } from "../controllers/auth/ResetPassword.contr
 import { ForgotPasswordController } from "../controllers/auth/ForgotPassword.controller";
 import { ActiveAccountController } from "../controllers/auth/ActiveAccount.controller";
 import { ResendActiveAccountController } from "../controllers/auth/ResendActiveAccount.controller";
+import { SignOutController } from "../controllers/auth/SignOut.controller";
+import { HasLoggedInMiddleware } from "../middlewares/HasLoggedIn.middleware";
 
 export const AuthRouter = Router();
 
@@ -18,4 +20,9 @@ AuthRouter.post("/active-account", new ActiveAccountController().handle);
 AuthRouter.post(
   "/resend-active-account",
   new ResendActiveAccountController().handle
+);
+AuthRouter.post(
+  "/signout",
+  new HasLoggedInMiddleware().http,
+  new SignOutController().handle
 );
