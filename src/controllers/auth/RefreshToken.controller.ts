@@ -19,7 +19,7 @@ export class RefreshTokenController {
       res.status(401).send({ error: "Refresh Token inválido" });
       return;
     }
-    
+
     const user = await database.user.findFirst({
       where: {
         id: userInfo.userId,
@@ -34,14 +34,14 @@ export class RefreshTokenController {
     });
 
     if (!user) {
-      res.status(401).send({ error: "User not found" });
+      res.status(401).send({ error: "Usuário não encontrado" });
       return;
     }
 
     const refresh = await cache.get(`refreshToken:${userInfo.userId}`);
 
     if (!refresh) {
-      res.status(401).send({ error: "Refresh Token expiredo" });
+      res.status(401).send({ error: "Refresh Token expirado" });
       return;
     }
 
