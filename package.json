@@ -9,10 +9,10 @@
   },
   "keywords": [],
   "author": "dhomini-pereira",
-  "license": "ISC",
+  "license": "MIT",
   "description": "",
   "devDependencies": {
-    "@aws-sdk/types": "^3.686.0",
+    "@aws-sdk/types": "^3.692.0",
     "@types/bcrypt": "^5.0.2",
     "@types/cors": "^2.8.17",
     "@types/express": "^5.0.0",
