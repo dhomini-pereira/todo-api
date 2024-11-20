@@ -9,7 +9,7 @@ export class SignInController {
     const data = req.body;
 
     if (!data || !data.email || !data.password) {
-      res.status(400).json({ message: "Existem campos vazios!" });
+      res.status(400).json({ errorcl: "Existem campos vazios!" });
       return;
     }
 
@@ -29,12 +29,12 @@ export class SignInController {
     });
 
     if (!user || !bcrypt.compareSync(data.password, user.password)) {
-      res.status(400).json({ message: "E-Mail ou senha inválidos!" });
+      res.status(400).json({ error: "E-Mail ou senha inválidos!" });
       return;
     }
 
     if (!user.active) {
-      res.status(400).json({ message: "Conta não ativada!" });
+      res.status(400).json({ error: "Conta não ativada!" });
       return;
     }
 
