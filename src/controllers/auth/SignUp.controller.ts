@@ -33,7 +33,7 @@ export class SignUpController {
 
       const code = new GenerateCodeUtil().generate();
 
-      await cache.set(`activeAccount:${user.id}`, code, "EX", 60 * 15);
+      await cache.set(`activeAccount:${user.id}`, code, { ex: 60 * 15 });
 
       await new SendEmailService().send(
         user.email,
@@ -45,29 +45,25 @@ export class SignUpController {
       res.status(201).json(user);
       return;
     } catch (err) {
-      return this.error(res, err);
-    }
-  }
+      if (err instanceof PrismaClientKnownRequestError) {
+        if (err.code === "P2002") {
+          if ((err.meta?.target as string[])?.includes("email")) {
+            res.status(400).json({ error: "E-mail já cadastrado!" });
+            return;
+          }
 
-  error(res: Response, err: any): void {
-    if (err instanceof PrismaClientKnownRequestError) {
-      if (err.code === "P2002") {
-        if ((err.meta?.target as string[])?.includes("email")) {
-          res.status(400).json({ error: "E-mail já cadastrado!" });
-          return;
-        }
-
-        if ((err.meta?.target as string[])?.includes("username")) {
-          res.status(400).json({ error: "Nome de usuário já cadastrado!" });
+          if ((err.meta?.target as string[])?.includes("username")) {
+            res.status(400).json({ error: "Nome de usuário já cadastrado!" });
+            return;
+          }
+        } else {
+          res.status(500).json({ error: "Erro interno do servidor!" });
           return;
         }
       } else {
-        res.status(500).json({ error: "Erro interno do servidor!" });
+        res.status(500).send({ error: "Erro interno do servidor!" });
         return;
       }
-    } else {
-      res.status(500).send({ error: "Erro interno do servidor!" });
-      return;
     }
   }
 }

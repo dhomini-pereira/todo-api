@@ -39,7 +39,7 @@ export class ForgotPasswordController {
 
     const code = new GenerateCodeUtil().generate();
 
-    await cache.set(`forgotPassword:${user.id}`, code, "EX", 60 * 5);
+    await cache.set(`forgotPassword:${user.id}`, code, { ex: 60 * 5 });
 
     await new SendEmailService().send(
       user.email,

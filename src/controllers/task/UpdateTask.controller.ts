@@ -47,22 +47,18 @@ export class UpdateTaskController {
       this.socket.to(`workarea_${workareaId}`).emit("update_task", task);
       return;
     } catch (err: any) {
-      this.error(res, err);
-    }
-  }
-
-  error(res: Response, err: any): void {
-    if (err instanceof PrismaClientKnownRequestError) {
-      if (err.code === "P2025") {
-        res.status(400).send({ error: "Tarefa não encontrada!" });
-        return;
+      if (err instanceof PrismaClientKnownRequestError) {
+        if (err.code === "P2025") {
+          res.status(400).send({ error: "Tarefa não encontrada!" });
+          return;
+        } else {
+          res.status(500).json({ error: "Erro interno do servidor!" });
+          return;
+        }
       } else {
-        res.status(500).json({ error: "Erro interno do servidor!" });
+        res.status(500).send({ error: "Erro interno do servidor!" });
         return;
       }
-    } else {
-      res.status(500).send({ error: "Erro interno do servidor!" });
-      return;
     }
   }
 }

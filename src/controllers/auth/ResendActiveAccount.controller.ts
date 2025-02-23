@@ -35,7 +35,7 @@ export class ResendActiveAccountController {
 
     const code = new GenerateCodeUtil().generate();
 
-    await cache.set(`activeAccount:${user.id}`, code, "EX", 60 * 15);
+    await cache.set(`activeAccount:${user.id}`, code, { ex: 60 * 15 });
 
     await new SendEmailService().send(
       user.email,

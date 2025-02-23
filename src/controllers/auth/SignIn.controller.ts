@@ -55,12 +55,9 @@ export class SignInController {
       "30m"
     );
 
-    await cache.set(
-      `refreshToken:${user.id}`,
-      refreshToken,
-      "EX",
-      60 * 60 * 24 * 7
-    );
+    await cache.set(`refreshToken:${user.id}`, refreshToken, {
+      ex: 60 * 60 * 24 * 7,
+    });
 
     res.status(200).send({ accessToken, refreshToken });
     return;

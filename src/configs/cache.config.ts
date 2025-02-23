@@ -1,6 +1,6 @@
-import Redis from "ioredis";
+import { Redis } from "@upstash/redis";
 
 export const cache = new Redis({
-  host: process.env.REDIS_HOST,
-  port: Number(process.env.REDIS_PORT),
+  url: process.env.REDIS_URL,
+  token: process.env.REDIS_TOKEN,
 });

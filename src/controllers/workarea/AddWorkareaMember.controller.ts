@@ -42,12 +42,10 @@ export class AddWorkareaMemberController {
       }
 
       if (user.type === "PERSONAL") {
-        res
-          .status(400)
-          .send({
-            error:
-              "Você não pode convidar usuários em uma área de trabalho PERSONAL!",
-          });
+        res.status(400).send({
+          error:
+            "Você não pode convidar usuários em uma área de trabalho PERSONAL!",
+        });
         return;
       }
 
@@ -84,22 +82,18 @@ export class AddWorkareaMemberController {
       res.sendStatus(201);
       return;
     } catch (err) {
-      return this.error(res, err);
-    }
-  }
-
-  error(res: Response, err: any): void {
-    if (err instanceof PrismaClientKnownRequestError) {
-      if (err.code === "P2002") {
-        res.status(400).send({ error: "Usuário já convidado!" });
-        return;
+      if (err instanceof PrismaClientKnownRequestError) {
+        if (err.code === "P2002") {
+          res.status(400).send({ error: "Usuário já convidado!" });
+          return;
+        } else {
+          res.status(500).send({ error: "Erro interno do servidor!" });
+          return;
+        }
       } else {
         res.status(500).send({ error: "Erro interno do servidor!" });
         return;
       }
-    } else {
-      res.status(500).send({ error: "Erro interno do servidor!" });
-      return;
     }
   }
 }
